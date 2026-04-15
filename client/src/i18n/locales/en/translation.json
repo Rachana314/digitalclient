@@ -1,0 +1,140 @@
+{
+  "common": {
+    "language": "Language",
+    "english": "English",
+    "nepali": "Nepali",
+    "save": "Save",
+    "back": "Back",
+    "next": "Next",
+    "remove": "Remove",
+    "view": "View",
+    "edit": "Edit",
+    "openQr": "Open QR",
+    "manageForms": "Manage Forms",
+    "editSubmit": "Edit & Submit",
+    "viewAll": "View all →"
+  },
+
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Track form status, get updates, and access your household QR.",
+    "editProfile": "Edit Profile →",
+    "householdForm": "Household Form",
+    "householdId": "HOUSEHOLD ID",
+    "lastUpdated": "LAST UPDATED",
+    "correctionNeeded": "Correction Needed",
+    "qrCode": "QR Code",
+    "qrDesc": "Your QR appears after verification. It’s used for verification and tracking.",
+    "qrAvail": "QR AVAILABLE ✅",
+    "qrNot": "QR NOT AVAILABLE",
+    "quickActions": "Quick Actions",
+    "qaHousehold": "Household Form",
+    "qaHouseholdDesc": "Create / edit household details.",
+    "qaForms": "Form Management",
+    "qaFormsDesc": "Submitted, rejected, verified history.",
+    "qaAccessibility": "Accessibility",
+    "qaAccessibilityDesc": "Language, voice navigation, screen reader.",
+    "createHousehold": "+ Create Household",
+    "continueSubmit": "Continue & Submit",
+    "viewForms": "View Forms",
+    "notificationsBtn": "Notifications"
+  },
+
+  "forms": {
+    "title": "Forms",
+    "subtitle": "Manage drafts, submissions, rejected forms, and verified households.",
+    "newHousehold": "+ New Household Form",
+    "tabTitle": "{{status}} Forms",
+    "items": "{{count}} item(s)",
+    "empty": "No forms in this category.",
+    "lastUpdated": "Last updated: {{time}}",
+    "rejectedReason": "Rejected reason"
+  },
+
+  "household": {
+    "title": "Household Form",
+    "subtitle": "Fill household and all family member details in one form.",
+    "backToForms": "Back to Forms",
+
+    "steps": {
+      "info": "Household Info",
+      "members": "Members",
+      "documents": "Documents",
+      "review": "Review & Submit"
+    },
+
+    "info": {
+      "ward": "Ward",
+      "wardPh": "e.g. Ward 5",
+      "address": "Address",
+      "addressPh": "Tole / Street / Municipality"
+    },
+
+    "members": {
+      "add": "+ Add Member",
+      "none": "No members added yet.",
+      "member": "Member #{{n}}",
+      "fullName": "Full Name",
+      "age": "Age",
+      "gender": "Gender",
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "marital": "Marital Status",
+      "single": "Single",
+      "married": "Married",
+      "widowed": "Widowed",
+      "divorced": "Divorced",
+      "education": "Education",
+      "occupation": "Occupation",
+      "healthDisability": "Health/Disability",
+      "disabilityPh": "Describe disability / health condition"
+    },
+
+    "documents": {
+      "title": "Upload Documents",
+      "subtitle": "Citizenship / Birth Certificate / License (image or pdf)",
+      "none": "No documents uploaded yet.",
+      "citizenship": "Citizenship",
+      "birth": "Birth Certificate",
+      "license": "License"
+    },
+
+    "review": {
+      "title": "Review",
+      "ward": "Ward:",
+      "address": "Address:",
+      "members": "Members ({{count}})",
+      "documents": "Documents ({{count}})",
+      "noName": "(No name)",
+      "submit": "Submit for Verification",
+      "submitMsg": "Frontend only ✅ Next we will connect backend submit API."
+    }
+  },
+
+  "notifications": {
+    "title": "Notifications",
+    "subtitle": "Status updates, corrections, reminders, and admin announcements.",
+    "recent": "Recent Notifications",
+    "emptyTitle": "No notifications yet",
+    "emptyDesc": "You’ll see status updates, correction requests, and admin announcements here.",
+    "filterAll": "ALL",
+    "filterForm": "FORM",
+    "filterAdmin": "ADMIN",
+    "empty": "No notifications."
+  },
+
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Multi-language and accessibility options (UI only).",
+    "chooseLanguage": "Choose your preferred language.",
+    "accessibility": "Accessibility",
+    "accessibilityDesc": "Support for voice navigation and screen reader.",
+    "voiceNav": "Voice Navigation",
+    "voiceNavDesc": "Enable voice-based navigation.",
+    "screenReader": "Screen Reader Support",
+    "screenReaderDesc": "Improved labels & focus order.",
+    "save": "Save Settings",
+    "saved": "Saved ✅ (UI only). Later we will store this in DB."
+  }
+}
