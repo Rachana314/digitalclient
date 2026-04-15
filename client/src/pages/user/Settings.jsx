@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { apiFetch } from "../../lib/api";
 
-const API = import.meta.env.VITE_API_URL || "https://digitalserver.onrender.com";
+const API = import.meta.env.VITE_API_URL || "https://digitalserver.onrender.com/";
 const PUBLIC_BASE =
   import.meta.env.VITE_PUBLIC_BASE_URL ||
   `${window.location.protocol}//${window.location.host}`;

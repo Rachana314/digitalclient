@@ -7,12 +7,12 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://digitalserver.onrender.com",
+        target: "https://digitalserver.onrender.com/",
         changeOrigin: true,
         secure: false,
       },
       "/uploads": {
-        target: "https://digitalserver.onrender.com",
+        target: "https://digitalserver.onrender.com/",
         changeOrigin: true,
         secure: false,
       },

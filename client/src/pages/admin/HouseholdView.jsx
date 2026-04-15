@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { apiFetch } from "../../lib/api";
 
 const SERVER_BASE =
-  import.meta.env.VITE_API_URL?.replace("/api", "") || "https://digitalserver.onrender.com";
+  import.meta.env.VITE_API_URL?.replace("/api", "") || "https://digitalserver.onrender.com/";
 
 function resolveUrl(url) {
   if (!url) return "";
