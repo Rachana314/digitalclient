@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import PublicLayout from "./components/PublicLayout";
+import PublicLayout from "./components/layout/PublicLayout";
 import AuthLayout from "./components/AuthLayout";
 import AdminProtectedRoute from "./components/layout/AdminProtectedRoute";
 
