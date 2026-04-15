@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
 const tabs = ["submitted", "verified", "rejected", "draft"];
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "https://digitalserver.onrender.com";
 
 function StatusBadge({ status }) {
   const map = {

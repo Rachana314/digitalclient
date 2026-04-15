@@ -1,4 +1,4 @@
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API = import.meta.env.VITE_API_URL || "https://digitalserver.onrender.com";
 
 export async function apiFetch(path, options = {}) {
   const token = localStorage.getItem("token");
