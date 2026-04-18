@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, CircleMarker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import { apiFetch } from "../../lib/api";
 
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -18,10 +19,7 @@ export default function HouseholdMapDashboard() {
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch("/api/households/admin/map-data", {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-    })
-      .then((res) => res.json())
+    apiFetch("/api/households/admin/map-data")
       .then((data) => {
         if (data.success) setHouseholds(data.data);
         else setError(data.message);
@@ -73,7 +71,7 @@ export default function HouseholdMapDashboard() {
           ].map(({ label, value, color }) => (
             <div
               key={label}
-              className={`bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center`}
+              className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 text-center"
             >
               <p className="text-xs text-gray-500 mb-1">{label}</p>
               <p className={`text-3xl font-bold text-${color}-600`}>{value}</p>
@@ -189,7 +187,6 @@ export default function HouseholdMapDashboard() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );
