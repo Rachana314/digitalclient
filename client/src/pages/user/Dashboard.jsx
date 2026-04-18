@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { apiFetch } from "../../lib/api";
 
 // Icons
 function UserIcon({ className = "h-6 w-6" }) {
@@ -26,7 +27,6 @@ const badgeStyles = {
   verified: "bg-emerald-50 text-emerald-700 ring-emerald-200",
 };
 
-// Small reusable components
 function StatusBadge({ status = "n/a" }) {
   return (
     <span
@@ -80,12 +80,10 @@ function GhostBtn({ to, children }) {
   );
 }
 
-// Main Dashboard Component
 export default function Dashboard() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
-  // Logged in user info
   const [user, setUser] = useState({
     name: "",
     phone: "",
@@ -124,7 +122,6 @@ export default function Dashboard() {
     };
 
     loadUser();
-
     window.addEventListener("user-updated", loadUser);
     return () => window.removeEventListener("user-updated", loadUser);
   }, [navigate]);
@@ -133,12 +130,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchHousehold = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await fetch("/api/households", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        const data = await res.json();
-
+        const data = await apiFetch("/api/households");
         if (Array.isArray(data) && data.length > 0) {
           const h = data[0];
           setHousehold({
@@ -159,29 +151,18 @@ export default function Dashboard() {
     fetchHousehold();
   }, []);
 
-  // ✅ FIX: Fetch notifications from API
+  // Fetch notifications
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await fetch("/api/notifications", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        if (!res.ok) throw new Error("Failed to fetch notifications");
-
-        const data = await res.json();
-
+        const data = await apiFetch("/api/notifications");
         if (Array.isArray(data) && data.length > 0) {
-          // Show only the 3 most recent notifications
           setNotifications(
             data.slice(0, 3).map((n) => ({
               id: n.id || n._id,
               title: n.title,
-              message: n.message || n.body || n.description || "",
-              time: n.createdAt
-                ? new Date(n.createdAt).toLocaleString()
-                : "",
+              message: n.message || n.body || n.msg || "",
+              time: n.createdAt ? new Date(n.createdAt).toLocaleString() : "",
             }))
           );
         } else {
@@ -195,7 +176,6 @@ export default function Dashboard() {
     fetchNotifications();
   }, []);
 
-  // Can the user still edit their household?
   const canEdit = household?.status === "draft" || household?.status === "rejected";
 
   const ctaTo = !household?.exists
@@ -204,7 +184,6 @@ export default function Dashboard() {
     ? "/user/household/new"
     : "/user/forms";
 
-  // Current language
   const currentLang = i18n.language?.startsWith("np") ? "np" : "en";
 
   return (
@@ -215,8 +194,6 @@ export default function Dashboard() {
         <div className="rounded-3xl border border-black/5 bg-white p-5 sm:p-6 shadow-sm">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
-
-              {/* Profile image */}
               <div className="h-14 w-14 rounded-2xl overflow-hidden border bg-orange-100 text-orange-700 grid place-items-center">
                 {user.profileImageUrl ? (
                   <img
@@ -231,7 +208,6 @@ export default function Dashboard() {
                 )}
               </div>
 
-              {/* Name, subtitle, contact info */}
               <div className="min-w-0">
                 <div className="flex items-center gap-3 flex-wrap">
                   <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900">
@@ -254,7 +230,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Language switcher + action buttons */}
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-2 rounded-2xl border border-black/10 bg-zinc-50 p-2">
                 <span className="text-xs font-extrabold text-zinc-500 px-2">
@@ -318,7 +293,6 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Show rejection reason if form was rejected */}
                 {household.status === "rejected" && (
                   <div className="mt-4 rounded-2xl border border-rose-200 bg-rose-50 p-4">
                     <div className="font-extrabold text-rose-700">{t("dashboard.correctionNeeded")}</div>
