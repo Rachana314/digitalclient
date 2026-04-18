@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import QRCode from "react-qr-code";
 import { apiFetch } from "../../lib/api";
 
-const API = import.meta.env.VITE_API_URL || "https://digitalserver.onrender.com/";
+const API = (import.meta.env.VITE_API_URL || "https://digitalserver.onrender.com").replace(/\/$/, "");
 const PUBLIC_BASE =
   import.meta.env.VITE_PUBLIC_BASE_URL ||
   `${window.location.protocol}//${window.location.host}`;
@@ -36,7 +36,6 @@ export default function Settings() {
   const load = async () => {
     try {
       setErr("");
-
       const data = await apiFetch("/api/users/me");
 
       const nextUser = data?.user
@@ -397,23 +396,18 @@ export default function Settings() {
               <div className="font-extrabold text-emerald-700">
                 Your QR code is ready.
               </div>
-
               <div className="text-sm text-black/60">
                 This QR code always shows the latest form status.
               </div>
-
               <div className="bg-white p-4 rounded-2xl border inline-block">
                 <QRCode value={qrTargetUrl} size={220} />
               </div>
-
               <div className="text-sm font-semibold text-black/70">
                 Household ID: {household.householdId}
               </div>
-
               <div className="text-xs text-black/50 break-all">
                 QR target: {qrTargetUrl}
               </div>
-
               <div className="flex gap-3 flex-wrap">
                 <button
                   onClick={() => navigate(`/user/qr/${household.householdId}`)}
@@ -421,7 +415,6 @@ export default function Settings() {
                 >
                   Open QR Page
                 </button>
-
                 <button
                   onClick={() => window.open(qrTargetUrl, "_blank")}
                   className="rounded-2xl px-5 py-3 font-extrabold border hover:bg-black/5 transition"
@@ -459,7 +452,6 @@ export default function Settings() {
         <p className="text-sm text-black/60">
           Sign out from your account on this device.
         </p>
-
         <button
           onClick={logout}
           className="rounded-2xl px-6 py-3 font-extrabold bg-rose-600 text-white hover:bg-rose-700 transition"
