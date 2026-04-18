@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { apiFetch } from "../../lib/api";
 
 const tabs = ["submitted", "verified", "rejected", "draft"];
-const BASE_URL = "https://digitalserver.onrender.com/";
 
 function StatusBadge({ status }) {
   const map = {
@@ -80,17 +80,13 @@ export default function AdminHouseholds() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmTarget, setConfirmTarget] = useState("");
 
-  const getHeaders = () => ({
-    "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.getItem("token")}`,
-  });
-
   const loadProgress = async () => {
     try {
-      const res = await fetch(`${BASE_URL}/api/admin/progress`, { headers: getHeaders() });
-      const data = await res.json();
+      const data = await apiFetch("/api/admin/progress");
       setProgress(data);
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const loadHouseholds = async ({ isRefresh = false } = {}) => {
@@ -102,8 +98,7 @@ export default function AdminHouseholds() {
       if (ward) params.append("ward", ward);
       if (status) params.append("status", status);
 
-      const res = await fetch(`${BASE_URL}/api/admin/households?${params.toString()}`, { headers: getHeaders() });
-      const data = await res.json();
+      const data = await apiFetch(`/api/admin/households?${params.toString()}`);
       setRows(Array.isArray(data) ? data : []);
     } catch (e) {
       setErr(e.message || "Failed to load households");
@@ -126,15 +121,16 @@ export default function AdminHouseholds() {
   const verify = async () => {
     setBusyAction(true);
     try {
-      const res = await fetch(`${BASE_URL}/api/admin/households/${confirmTarget}/verify`, {
+      await apiFetch(`/api/admin/households/${confirmTarget}/verify`, {
         method: "PATCH",
-        headers: getHeaders(),
       });
-      if (!res.ok) throw new Error("Verification failed");
       setConfirmOpen(false);
       await Promise.all([loadProgress(), loadHouseholds({ isRefresh: true })]);
-    } catch (e) { setErr(e.message); }
-    finally { setBusyAction(false); }
+    } catch (e) {
+      setErr(e.message);
+    } finally {
+      setBusyAction(false);
+    }
   };
 
   const openReject = (householdId) => {
@@ -145,16 +141,17 @@ export default function AdminHouseholds() {
   const reject = async (reason) => {
     setBusyAction(true);
     try {
-      const res = await fetch(`${BASE_URL}/api/admin/households/${rejectTarget}/reject`, {
+      await apiFetch(`/api/admin/households/${rejectTarget}/reject`, {
         method: "PATCH",
-        headers: getHeaders(),
         body: JSON.stringify({ reason }),
       });
-      if (!res.ok) throw new Error("Rejection failed");
       setRejectOpen(false);
       await Promise.all([loadProgress(), loadHouseholds({ isRefresh: true })]);
-    } catch (e) { setErr(e.message); }
-    finally { setBusyAction(false); }
+    } catch (e) {
+      setErr(e.message);
+    } finally {
+      setBusyAction(false);
+    }
   };
 
   const wardOptions = useMemo(() => {
